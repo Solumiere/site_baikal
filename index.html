@@ -302,6 +302,17 @@ const hdr=document.getElementById('hdr');
 const progress=document.getElementById('progress');
 const onScroll=()=>{hdr.classList.toggle('scrolled',window.scrollY>40);const h=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(h>0?(window.scrollY/h*100):0)+'%';};
 onScroll();window.addEventListener('scroll',onScroll,{passive:true});
-window.addEventListener('load',()=>{const p=document.getElementById('preloader');if(p)setTimeout(()=>p.classList.add('done'),400);});
+function hidePreloader(){var p=document.getElementById('preloader');if(p)p.classList.add('done');}
+window.addEventListener('load',function(){setTimeout(hidePreloader,400);});
+document.addEventListener('DOMContentLoaded',function(){setTimeout(hidePreloader,1000);});
+setTimeout(hidePreloader,2500);
 const burger=document.getElementById('burger');
-const mobileMenu=document.getElementById('mob
+const mobileMenu=document.getElementById('mobileMenu');
+const toggleMenu=()=>{burger.classList.toggle('active');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';};
+burger.addEventListener('click',toggleMenu);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',toggleMenu));
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
