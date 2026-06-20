@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОБСИДИАН — ресторан сибирской кухни</title>
+<style>
+:root{
+	--bg:#0c0b0a;--bg2:#141210;--panel:#16140f;
+	--gold:#c8a24c;--gold-soft:#e0c585;--text:#ece7df;--muted:#8d867a;
+	--line:rgba(200,162,76,.22);--maxw:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-weight:600;letter-spacing:.06em;line-height:1.2}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.muted{color:var(--muted)}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(12,11,10,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:34px;height:74px}
+.logo{font-size:20px;letter-spacing:.34em;font-weight:600;color:var(--text)}
+.nav-links{display:flex;gap:30px;margin-left:18px}
+.nav-links a{position:relative;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .3s ease}
+.nav-links a:hover{color:var(--gold-soft)}
+.nav-links a:hover::after{width:100%}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:22px}
+.lang{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.lang b{color:var(--gold)}
+.btn{display:inline-block;border:1px solid var(--gold);color:var(--gold-soft);padding:12px 22px;border-radius:40px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:all .3s ease;cursor:pointer;background:transparent}
+.btn:hover{background:var(--gold);color:#0c0b0a;box-shadow:0 6px 24px rgba(200,162,76,.28)}
+.btn-solid{background:var(--gold);color:#0c0b0a}
+.btn-solid:hover{background:var(--gold-soft)}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#0c0b0a}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(120% 80% at 50% 28%,rgba(42,36,24,.6) 0%,rgba(12,11,10,.2) 70%),url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80");background-size:cover;background-position:center;animation:kenburns 26s ease-in-out infinite alternate}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,11,10,.5) 0%,rgba(12,11,10,.32) 42%,rgba(12,11,10,.96) 100%)}
+.hero>*{position:relative;z-index:2}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.14)}}
+.hero-logo{font-size:clamp(46px,9vw,104px);letter-spacing:.2em;font-weight:600;margin-bottom:10px;background:linear-gradient(180deg,#fff 0%,var(--gold-soft) 70%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 4px 50px rgba(0,0,0,.5);animation:fadeUp 1.4s cubic-bezier(.22,.61,.36,1) both}
+.hero-sub{font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:38px;animation:fadeUp 1.4s .25s cubic-bezier(.22,.61,.36,1) both}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeUp 1.4s .5s cubic-bezier(.22,.61,.36,1) both}
+.hero-meta{position:absolute;top:90px;left:0;right:0;z-index:2;display:flex;justify-content:space-between;padding:0 28px;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;animation:fadeUp 1.4s .7s ease both}
+.scroll-hint{position:absolute;bottom:34px;left:50%;z-index:2;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(8px);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+section{padding:120px 0;position:relative}
+.section-title{position:relative;display:inline-block;font-size:clamp(26px,4vw,46px);margin-bottom:26px;padding-bottom:18px}
+.section-title::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .9s ease .2s}
+.center .section-title::after{left:50%;transform:translateX(-50%)}
+.section-title.visible::after{width:64px}
+
+/* PHILOSOPHY */
+.center{text-align:center}
+.phil{text-align:center;max-width:760px;margin:0 auto}
+.phil p{font-size:17px;color:var(--muted);max-width:620px;margin:0 auto}
+.divider{width:1px;height:70px;background:linear-gradient(var(--gold),transparent);margin:46px auto 0}
+
+/* MAP */
+.map-section{background:var(--bg2)}
+.map-wrap{position:relative;max-width:760px;margin:40px auto 0}
+.map-wrap svg{width:100%;height:auto;opacity:.5}
+.map-label{position:absolute;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);white-space:nowrap}
+.map-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle;box-shadow:0 0 10px var(--gold)}
+.l1{top:24%;left:30%}.l2{top:14%;right:18%}.l3{top:52%;left:48%}.l4{bottom:24%;left:18%}.l5{bottom:14%;left:40%}
+
+/* MENU */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.dish{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:4px;overflow:hidden;transition:transform .5s ease,border-color .5s ease}
+.dish:hover{transform:translateY(-8px);border-color:var(--line)}
+.dish-imgwrap{height:240px;overflow:hidden}
+.dish-img{height:100%;background-size:cover;background-position:center;transition:transform 1s ease}
+.dish:hover .dish-img{transform:scale(1.08)}
+.dish-body{padding:24px}
+.dish h3{font-size:17px;letter-spacing:.08em;margin-bottom:10px}
+.dish p{font-size:14px;color:var(--muted)}
+.dish-a{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80")}
+.dish-b{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80")}
+.dish-c{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=800&q=80")}
+
+/* SET */
+.set-section{background:var(--bg2)}
+.set{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.set-photo{height:440px;border-radius:4px;background-size:cover;background-position:center;background-image:linear-gradient(rgba(12,11,10,.2),rgba(12,11,10,.5)),url("https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80")}
+.set-course{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.set-course span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
+.set-course b{font-weight:500;font-size:16px}
+.set-price{display:flex;gap:36px;margin-top:30px}
+.set-price div span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.set-price div b{display:block;font-size:24px;color:var(--gold-soft);margin-top:6px;letter-spacing:.04em}
+
+/* EVENTS */
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:46px}
+.ev{border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:28px 24px;transition:background .4s,border-color .4s,transform .4s}
+.ev:hover{background:var(--panel);border-color:var(--line);transform:translateY(-5px)}
+.ev .date{font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.ev h3{font-size:17px;letter-spacing:.04em;line-height:1.4}
+
+/* BOOKING */
+.book-section{background:linear-gradient(180deg,var(--bg2),#0a0908);text-align:center}
+.book-form{max-width:520px;margin:40px auto 0;display:flex;flex-direction:column;gap:16px}
+.book-form input{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);color:var(--text);padding:16px 18px;border-radius:4px;font-size:15px;font-family:inherit;transition:border-color .3s}
+.book-form input:focus{outline:none;border-color:var(--gold)}
+.book-form .row{display:flex;gap:16px}
+.book-form .row input{flex:1}
+
+footer{border-top:1px solid var(--line);padding:50px 0;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.1em}
+footer .logo{font-size:18px;margin-bottom:14px;display:inline-block}
+
+/* REVEAL ON SCROLL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.s1{transition-delay:.08s}.s2{transition-delay:.18s}.s3{transition-delay:.28s}.s4{transition-delay:.38s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}.hero::before{animation:none}}
+
+@media(max-width:860px){.nav-links{display:none}.set{grid-template-columns:1fr;gap:30px}.set-photo{height:300px}section{padding:80px 0}.hero-meta{font-size:10px}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+	<div class="wrap nav">
+		<a href="#top" class="logo">ОБСИДИАН</a>
+		<nav class="nav-links">
+			<a href="#phil">Философия</a>
+			<a href="#menu">Меню</a>
+			<a href="#set">Сет</a>
+			<a href="#events">События</a>
+		</nav>
+		<div class="nav-right">
+			<span class="lang"><b>RU</b> / EN</span>
+			<a href="#book" class="btn">Забронировать</a>
+		</div>
+	</div>
+</header>
+
+<section class="hero" id="top">
+	<div class="hero-meta">
+		<span>Пн–Вс 12:00 — 00:00</span>
+		<span>г. Иркутск, набережная Ангары</span>
+	</div>
+	<div class="hero-logo">ОБСИДИАН</div>
+	<div class="hero-sub">Ресторан сибирской кухни</div>
+	<div class="hero-cta">
+		<a href="#menu" class="btn">Посмотреть меню</a>
+		<a href="#book" class="btn btn-solid">Забронировать стол</a>
+	</div>
+	<div class="scroll-hint">Прокрутите</div>
+</section>
+
+<section id="phil" class="center">
+	<div class="wrap phil">
+		<div class="eyebrow reveal">Философия</div>
+		<h2 class="section-title reveal s1">Вкус дикой Сибири</h2>
+		<p class="reveal s2">Мы воссоздаём достоверную кухню Прибайкалья: байкальская рыба, дичь, таёжные травы и северные ягоды. Каждое блюдо — это страница дневника сибирского путешественника.</p>
+		<div class="divider reveal s3"></div>
+	</div>
+</section>
+
+<section class="map-section center" id="map">
+	<div class="wrap">
+		<div class="eyebrow reveal">Гастрономические эксперименты</div>
+		<h2 class="section-title reveal s1">С локальными продуктами Прибайкалья</h2>
+		<div class="map-wrap reveal s2">
+			<svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" stroke="#c8a24c" fill="none" stroke-width="1">
+				<ellipse cx="300" cy="210" rx="60" ry="150" transform="rotate(18 300 210)" opacity=".9"/>
+				<ellipse cx="300" cy="210" rx="95" ry="180" transform="rotate(18 300 210)" opacity=".7"/>
+				<ellipse cx="300" cy="210" rx="135" ry="205" transform="rotate(18 300 210)" opacity=".5"/>
+				<ellipse cx="300" cy="210" rx="180" ry="235" transform="rotate(18 300 210)" opacity=".35"/>
+				<ellipse cx="300" cy="210" rx="230" ry="270" transform="rotate(18 300 210)" opacity=".22"/>
+				<ellipse cx="300" cy="210" rx="285" ry="305" transform="rotate(18 300 210)" opacity=".12"/>
+			</svg>
+			<span class="map-label l1">Сибирские ягоды</span>
+			<span class="map-label l2">Баргузинская щука</span>
+			<span class="map-label l3">Байкальский омуль</span>
+			<span class="map-label l4">Окинский сарлык</span>
+			<span class="map-label l5">Таёжные грузди</span>
+		</div>
+	</div>
+</section>
+
+<section id="menu">
+	<div class="wrap">
+		<div class="eyebrow reveal">Меню</div>
+		<h2 class="section-title reveal s1">Авторские блюда</h2>
+		<div class="menu-grid">
+			<article class="dish reveal s1">
+				<div class="dish-imgwrap"><div class="dish-img dish-a"></div></div>
+				<div class="dish-body"><h3>Костровая уха</h3><p>С байкальской рыбой, пеплом и ложкой омулевой икры.</p></div>
+			</article>
+			<article class="dish reveal s2">
+				<div class="dish-imgwrap"><div class="dish-img dish-b"></div></div>
+				<div class="dish-body"><h3>Рожон на ивовых прутьях</h3><p>Стейк из сибирского ленка, выловленного из Ангары.</p></div>
+			</article>
+			<article class="dish reveal s3">
+				<div class="dish-imgwrap"><div class="dish-img dish-c"></div></div>
+				<div class="dish-body"><h3>Сибирский лес</h3><p>Шоколадный крамбл с розмарином, мочёной брусникой и кедровым орехом.</p></div>
+			</article>
+		</div>
+	</div>
+</section>
+
+<section class="set-section" id="set">
+	<div class="wrap">
+		<div class="set">
+			<div class="set-photo reveal"></div>
+			<div>
+				<div class="eyebrow reveal">Дегустационный сет</div>
+				<h2 class="section-title reveal s1">Долина Пепла</h2>
+				<div class="set-course reveal s1"><span>Закуска</span><b>Сагудай из малосольной байкальской рыбы</b></div>
+				<div class="set-course reveal s2"><span>Продолжение</span><b>Наваристая уха из сибирской рыбы</b></div>
+				<div class="set-course reveal s3"><span>Горячее</span><b>Стейк из баргузинской щуки</b></div>
+				<div class="set-course reveal s4"><span>Десерт</span><b>Цукаты из сосновых шишек</b></div>
+				<div class="set-price reveal s4">
+					<div><span>Сет</span><b>3 000 ₽</b></div>
+					<div><span>Винное сопровождение</span><b>4 000 ₽</b></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="events">
+	<div class="wrap">
+		<div class="eyebrow reveal">События</div>
+		<h2 class="section-title reveal s1">Будьте в курсе</h2>
+		<div class="ev-grid">
+			<div class="ev reveal s1"><div class="date">14 июня · 19:00</div><h3>Открытие летней веранды с виноделом</h3></div>
+			<div class="ev reveal s2"><div class="date">18 июня · 19:30</div><h3>Гастроужин «Лес и Степь» × Обсидиан</h3></div>
+			<div class="ev reveal s3"><div class="date">27 июня · 19:00</div><h3>Винный ужин с сомелье</h3></div>
+		</div>
+	</div>
+</section>
+
+<section class="book-section center" id="book">
+	<div class="wrap">
+		<div class="eyebrow reveal">Бронирование</div>
+		<h2 class="section-title reveal s1">Забронируйте стол</h2>
+		<p class="muted reveal s2">Оставьте заявку — мы перезвоним в течение 15 минут и подтвердим бронь.</p>
+		<form class="book-form reveal s3" onsubmit="event.preventDefault();this.innerHTML='<p style=\'color:var(--gold-soft);font-size:18px;padding:30px 0\'>Спасибо! Мы свяжемся с вами в ближайшее время.</p>';">
+			<input type="text" placeholder="Ваше имя" required>
+			<input type="tel" placeholder="Телефон" required>
+			<div class="row">
+				<input type="date">
+				<input type="number" placeholder="Гостей" min="1" value="2">
+			</div>
+			<button type="submit" class="btn btn-solid" style="padding:16px">Отправить заявку</button>
+		</form>
+	</div>
+</section>
+
+<footer>
+	<div class="wrap">
+		<span class="logo">ОБСИДИАН</span><br>
+		г. Иркутск, набережная Ангары · +7 950 000 00 00 · ежедневно 12:00–00:00<br>
+		<span style="font-size:11px;opacity:.6">Демо-референс · дизайн и вёрстка</span>
+	</div>
+</footer>
+
+<script>
+const hdr=document.getElementById('hdr');
+const onScroll=()=>{hdr.classList.toggle('scrolled',window.scrollY>40)};
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
