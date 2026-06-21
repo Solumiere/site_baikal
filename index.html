@@ -21,7 +21,7 @@ img{max-width:100%;display:block}
 .muted{color:var(--muted)}
 
 /* NAV */
-header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
+header{position:fixed;top:0;left:0;right:0;z-index:120;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
 header.scrolled{background:rgba(12,11,10,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;gap:34px;height:74px}
 .logo{font-size:20px;letter-spacing:.34em;font-weight:600;color:var(--text)}
@@ -134,6 +134,7 @@ footer .logo{font-size:18px;margin-bottom:14px;display:inline-block}
 .mobile-menu.open{opacity:1;visibility:visible}
 .mobile-menu a{font-size:21px;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
 .mobile-menu a.btn{font-size:13px;color:var(--gold-soft)}
+.m-close{position:absolute;top:20px;right:20px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--gold-soft);font-size:36px;line-height:1;cursor:pointer;z-index:2}
 
 /* REVEAL ON SCROLL */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
@@ -168,6 +169,7 @@ footer .logo{font-size:18px;margin-bottom:14px;display:inline-block}
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
+	<button class="m-close" id="mClose" aria-label="Закрыть">&times;</button>
 	<a href="#phil">Философия</a>
 	<a href="#menu">Меню</a>
 	<a href="#set">Сет</a>
@@ -309,9 +311,14 @@ document.addEventListener('DOMContentLoaded',function(){setTimeout(hidePreloader
 setTimeout(hidePreloader,2500);
 const burger=document.getElementById('burger');
 const mobileMenu=document.getElementById('mobileMenu');
-const toggleMenu=()=>{burger.classList.toggle('active');mobileMenu.classList.toggle('open');document.body.style.overflow=mobileMenu.classList.contains('open')?'hidden':'';};
+const mClose=document.getElementById('mClose');
+const closeMenu=()=>{burger.classList.remove('active');mobileMenu.classList.remove('open');document.body.style.overflow='';};
+const toggleMenu=()=>{const willOpen=!mobileMenu.classList.contains('open');burger.classList.toggle('active',willOpen);mobileMenu.classList.toggle('open',willOpen);document.body.style.overflow=willOpen?'hidden':'';};
 burger.addEventListener('click',toggleMenu);
-mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',toggleMenu));
+mClose.addEventListener('click',closeMenu);
+mobileMenu.addEventListener('click',e=>{if(e.target===mobileMenu)closeMenu();});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
 const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
