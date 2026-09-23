@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Siberian cuisine restaurant</title>
+<style>
+:root{
+	--bg:#0c0b0a;--bg2:#141210;--panel:#16140f;
+	--gold:#c8a24c;--gold-soft:#e0c585;--text:#ece7df;--muted:#8d867a;
+	--line:rgba(200,162,76,.22);--maxw:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-weight:600;letter-spacing:.06em;line-height:1.2}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.muted{color:var(--muted)}
+
+/* NAV */
+header{position:fixed;top:0;left:0;right:0;z-index:120;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(12,11,10,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:34px;height:74px}
+.logo{font-size:20px;letter-spacing:.34em;font-weight:600;color:var(--text)}
+.nav-links{display:flex;gap:30px;margin-left:18px}
+.nav-links a{position:relative;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .3s ease}
+.nav-links a:hover{color:var(--gold-soft)}
+.nav-links a:hover::after{width:100%}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:22px}
+.lang{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.lang b{color:var(--gold)}
+.btn{display:inline-block;border:1px solid var(--gold);color:var(--gold-soft);padding:12px 22px;border-radius:40px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:all .3s ease;cursor:pointer;background:transparent}
+.btn:hover{background:var(--gold);color:#0c0b0a;box-shadow:0 6px 24px rgba(200,162,76,.28)}
+.btn-solid{background:var(--gold);color:#0c0b0a}
+.btn-solid:hover{background:var(--gold-soft)}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#0c0b0a}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(120% 80% at 50% 28%,rgba(42,36,24,.6) 0%,rgba(12,11,10,.2) 70%),url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80");background-size:cover;background-position:center;animation:kenburns 26s ease-in-out infinite alternate}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(12,11,10,.5) 0%,rgba(12,11,10,.32) 42%,rgba(12,11,10,.96) 100%)}
+.hero>*{position:relative;z-index:2}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.14)}}
+.hero-logo{font-size:clamp(46px,9vw,104px);letter-spacing:.2em;font-weight:600;margin-bottom:10px;background:linear-gradient(180deg,#fff 0%,var(--gold-soft) 70%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 4px 50px rgba(0,0,0,.5);animation:fadeUp 1.4s cubic-bezier(.22,.61,.36,1) both}
+.hero-sub{font-size:13px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:38px;animation:fadeUp 1.4s .25s cubic-bezier(.22,.61,.36,1) both}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;animation:fadeUp 1.4s .5s cubic-bezier(.22,.61,.36,1) both}
+.hero-meta{position:absolute;top:90px;left:0;right:0;z-index:2;display:flex;justify-content:space-between;padding:0 28px;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;animation:fadeUp 1.4s .7s ease both}
+.scroll-hint{position:absolute;bottom:34px;left:50%;z-index:2;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.5}50%{transform:translateX(-50%) translateY(8px);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+
+section{padding:120px 0;position:relative}
+.section-title{position:relative;display:inline-block;font-size:clamp(26px,4vw,46px);margin-bottom:26px;padding-bottom:18px}
+.section-title::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--gold);transition:width .9s ease .2s}
+.center .section-title::after{left:50%;transform:translateX(-50%)}
+.section-title.visible::after{width:64px}
+
+/* PHILOSOPHY */
+.center{text-align:center}
+.phil{text-align:center;max-width:760px;margin:0 auto}
+.phil p{font-size:17px;color:var(--muted);max-width:620px;margin:0 auto}
+.divider{width:1px;height:70px;background:linear-gradient(var(--gold),transparent);margin:46px auto 0}
+
+/* MAP */
+.map-section{background:var(--bg2)}
+.map-wrap{position:relative;max-width:760px;margin:40px auto 0}
+.map-wrap svg{width:100%;height:auto;opacity:.5}
+.map-label{position:absolute;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-soft);white-space:nowrap}
+.map-label::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle;box-shadow:0 0 10px var(--gold)}
+.l1{top:24%;left:30%}.l2{top:14%;right:18%}.l3{top:52%;left:48%}.l4{bottom:24%;left:18%}.l5{bottom:14%;left:40%}
+
+/* MENU */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px}
+.dish{background:var(--panel);border:1px solid rgba(255,255,255,.05);border-radius:4px;overflow:hidden;transition:transform .5s ease,border-color .5s ease}
+.dish:hover{transform:translateY(-8px);border-color:var(--line)}
+.dish-imgwrap{height:240px;overflow:hidden}
+.dish-img{height:100%;background-size:cover;background-position:center;transition:transform 1s ease}
+.dish:hover .dish-img{transform:scale(1.08)}
+.dish-body{padding:24px}
+.dish h3{font-size:17px;letter-spacing:.08em;margin-bottom:10px}
+.dish p{font-size:14px;color:var(--muted)}
+.dish-a{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80")}
+.dish-b{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80")}
+.dish-c{background-image:linear-gradient(rgba(12,11,10,.15),rgba(12,11,10,.45)),url("https://images.unsplash.com/photo-1432139555190-58524dae6a55?auto=format&fit=crop&w=800&q=80")}
+
+/* SET */
+.set-section{background:var(--bg2)}
+.set{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.set-photo{height:440px;border-radius:4px;background-size:cover;background-position:center;background-image:linear-gradient(rgba(12,11,10,.2),rgba(12,11,10,.5)),url("https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80")}
+.set-course{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.set-course span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
+.set-course b{font-weight:500;font-size:16px}
+.set-price{display:flex;gap:36px;margin-top:30px}
+.set-price div span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.set-price div b{display:block;font-size:24px;color:var(--gold-soft);margin-top:6px;letter-spacing:.04em}
+
+/* EVENTS */
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:46px}
+.ev{border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:28px 24px;transition:background .4s,border-color .4s,transform .4s}
+.ev:hover{background:var(--panel);border-color:var(--line);transform:translateY(-5px)}
+.ev .date{font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+.ev h3{font-size:17px;letter-spacing:.04em;line-height:1.4}
+
+/* BOOKING */
+.book-section{background:linear-gradient(180deg,var(--bg2),#0a0908);text-align:center}
+.book-form{max-width:520px;margin:40px auto 0;display:flex;flex-direction:column;gap:16px}
+.book-form input{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.14);color:var(--text);padding:16px 18px;border-radius:4px;font-size:15px;font-family:inherit;transition:border-color .3s}
+.book-form input:focus{outline:none;border-color:var(--gold)}
+.book-form .row{display:flex;gap:16px}
+.book-form .row input{flex:1}
+
+footer{border-top:1px solid var(--line);padding:50px 0;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.1em}
+footer .logo{font-size:18px;margin-bottom:14px;display:inline-block}
+
+/* PRELOADER */
+#preloader{position:fixed;inset:0;z-index:1000;background:#0c0b0a;display:flex;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s ease}
+#preloader.done{opacity:0;visibility:hidden}
+.pre-logo{font-size:24px;letter-spacing:.42em;color:var(--gold-soft);animation:prePulse 1.6s ease-in-out infinite}
+@keyframes prePulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* SCROLL PROGRESS */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-soft));z-index:200;transition:width .1s linear}
+
+/* BURGER + MOBILE MENU */
+.burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;background:transparent;border:none;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--gold-soft);transition:transform .3s ease,opacity .3s ease}
+.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0}
+.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:110;background:rgba(10,9,8,.97);backdrop-filter:blur(12px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{font-size:21px;letter-spacing:.18em;text-transform:uppercase;color:var(--text)}
+.mobile-menu a.btn{font-size:13px;color:var(--gold-soft)}
+.m-close{position:absolute;top:20px;right:20px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--gold-soft);font-size:36px;line-height:1;cursor:pointer;z-index:2}
+
+/* REVEAL ON SCROLL */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.s1{transition-delay:.08s}.s2{transition-delay:.18s}.s3{transition-delay:.28s}.s4{transition-delay:.38s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}.hero::before{animation:none}}
+
+@media(max-width:860px){.nav-links{display:none}.burger{display:flex}.nav-right .lang,.nav-right>.btn{display:none}.set{grid-template-columns:1fr;gap:30px}.set-photo{height:300px}section{padding:80px 0}.hero{padding:96px 0 64px}.hero-logo{font-size:clamp(40px,13vw,72px);letter-spacing:.12em}.hero-sub{letter-spacing:.28em}.hero-meta{position:static;flex-direction:column;align-items:center;gap:4px;text-align:center;font-size:10px;margin-bottom:26px;padding:0}}
+@media(max-width:560px){.wrap{padding:0 18px}.nav{height:64px}.logo{font-size:17px;letter-spacing:.22em}.hero-logo{font-size:clamp(32px,11vw,56px);letter-spacing:.06em}.hero-sub{font-size:11px;letter-spacing:.18em;margin-bottom:30px}.hero-cta{flex-direction:column;width:100%}.hero-cta .btn{width:100%;text-align:center}.section-title{font-size:26px}.set-price{flex-direction:column;gap:14px}.dish-imgwrap{height:200px}.book-form .row{flex-direction:column}}
+@media(max-width:560px){.hero-cta{padding:0 22px;box-sizing:border-box}}
+</style>
+</head>
+<body>
+
+<div id="preloader"><div class="pre-logo">OBSIDIAN</div></div>
+<div id="progress"></div>
+
+<header id="hdr">
+	<div class="wrap nav">
+		<a href="#top" class="logo">OBSIDIAN</a>
+		<nav class="nav-links">
+			<a href="#phil">Philosophy</a>
+			<a href="#menu">Menu</a>
+			<a href="#set">Tasting set</a>
+			<a href="#events">Events</a>
+		</nav>
+		<div class="nav-right">
+			<span class="lang"><a href="../" style="color:inherit;text-decoration:none">RU</a> / <b>EN</b></span>
+			<a href="#book" class="btn">Book a table</a>
+			<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+		</div>
+	</div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+	<button class="m-close" id="mClose" aria-label="Close">×</button>
+	<a href="#phil">Philosophy</a>
+	<a href="#menu">Menu</a>
+	<a href="#set">Tasting set</a>
+	<a href="#events">Events</a>
+	<a href="#book" class="btn">Book a table</a>
+</div>
+
+<section class="hero" id="top">
+	<div class="hero-meta">
+		<span>Mon–Sun 12:00 — 00:00</span>
+		<span>Irkutsk, Angara embankment</span>
+	</div>
+	<div class="hero-logo">OBSIDIAN</div>
+	<div class="hero-sub">Siberian cuisine restaurant</div>
+	<div class="hero-cta">
+		<a href="#menu" class="btn">View menu</a>
+		<a href="#book" class="btn btn-solid">Book a table</a>
+	</div>
+	<div class="scroll-hint">Scroll</div>
+</section>
+
+<section id="phil" class="center">
+	<div class="wrap phil">
+		<div class="eyebrow reveal">Philosophy</div>
+		<h2 class="section-title reveal s1">The taste of wild Siberia</h2>
+		<p class="reveal s2">We recreate the authentic cuisine of the Baikal region: Baikal fish, game, taiga herbs and northern berries. Every dish is a page from a Siberian traveller's diary.</p>
+		<div class="divider reveal s3"></div>
+	</div>
+</section>
+
+<section class="map-section center" id="map">
+	<div class="wrap">
+		<div class="eyebrow reveal">Gastronomic experiments</div>
+		<h2 class="section-title reveal s1">With local produce of the Baikal region</h2>
+		<div class="map-wrap reveal s2">
+			<svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg" stroke="#c8a24c" fill="none" stroke-width="1">
+				<ellipse cx="300" cy="210" rx="60" ry="150" transform="rotate(18 300 210)" opacity=".9"></ellipse>
+				<ellipse cx="300" cy="210" rx="95" ry="180" transform="rotate(18 300 210)" opacity=".7"></ellipse>
+				<ellipse cx="300" cy="210" rx="135" ry="205" transform="rotate(18 300 210)" opacity=".5"></ellipse>
+				<ellipse cx="300" cy="210" rx="180" ry="235" transform="rotate(18 300 210)" opacity=".35"></ellipse>
+				<ellipse cx="300" cy="210" rx="230" ry="270" transform="rotate(18 300 210)" opacity=".22"></ellipse>
+				<ellipse cx="300" cy="210" rx="285" ry="305" transform="rotate(18 300 210)" opacity=".12"></ellipse>
+			</svg>
+			<span class="map-label l1">Siberian berries</span>
+			<span class="map-label l2">Barguzin pike</span>
+			<span class="map-label l3">Baikal omul</span>
+			<span class="map-label l4">Oka yak</span>
+			<span class="map-label l5">Taiga milk mushrooms</span>
+		</div>
+	</div>
+</section>
+
+<section id="menu">
+	<div class="wrap">
+		<div class="eyebrow reveal">Menu</div>
+		<h2 class="section-title reveal s1">Signature dishes</h2>
+		<div class="menu-grid">
+			<article class="dish reveal s1">
+				<div class="dish-imgwrap"><div class="dish-img dish-a"></div></div>
+				<div class="dish-body"><h3>Campfire fish soup</h3><p>With Baikal fish, ash and a spoonful of omul caviar.</p></div>
+			</article>
+			<article class="dish reveal s2">
+				<div class="dish-imgwrap"><div class="dish-img dish-b"></div></div>
+				<div class="dish-body"><h3>Fish roasted on willow sticks</h3><p>Siberian lenok steak, caught in the Angara.</p></div>
+			</article>
+			<article class="dish reveal s3">
+				<div class="dish-imgwrap"><div class="dish-img dish-c"></div></div>
+				<div class="dish-body"><h3>Siberian forest</h3><p>Chocolate crumble with rosemary, soaked lingonberries and pine nuts.</p></div>
+			</article>
+		</div>
+	</div>
+</section>
+
+<section class="set-section" id="set">
+	<div class="wrap">
+		<div class="set">
+			<div class="set-photo reveal"></div>
+			<div>
+				<div class="eyebrow reveal">Tasting set</div>
+				<h2 class="section-title reveal s1">Valley of Ash</h2>
+				<div class="set-course reveal s1"><span>Starter</span><b>Sagudai of lightly salted Baikal fish</b></div>
+				<div class="set-course reveal s2"><span>Continuation</span><b>Rich Siberian fish soup</b></div>
+				<div class="set-course reveal s3"><span>Main</span><b>Barguzin pike steak</b></div>
+				<div class="set-course reveal s4"><span>Dessert</span><b>Candied pine cones</b></div>
+				<div class="set-price reveal s4">
+					<div><span>Tasting set</span><b>3 000 ₽</b></div>
+					<div><span>Wine pairing</span><b>4 000 ₽</b></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section id="events">
+	<div class="wrap">
+		<div class="eyebrow reveal">Events</div>
+		<h2 class="section-title reveal s1">Upcoming events</h2>
+		<div class="ev-grid">
+			<div class="ev reveal s1"><div class="date">June 14 · 7 pm</div><h3>Summer terrace opening with a winemaker</h3></div>
+			<div class="ev reveal s2"><div class="date">June 18 · 7:30 pm</div><h3>“Forest &amp; Steppe” × Obsidian dinner</h3></div>
+			<div class="ev reveal s3"><div class="date">June 27 · 7 pm</div><h3>Wine dinner with our sommelier</h3></div>
+		</div>
+	</div>
+</section>
+
+<section class="book-section center" id="book">
+	<div class="wrap">
+		<div class="eyebrow reveal">Reservations</div>
+		<h2 class="section-title reveal s1">Book your table</h2>
+		<p class="muted reveal s2">Leave a request and we will call you back within 15 minutes to confirm.</p>
+		<form class="book-form reveal s3" onsubmit="event.preventDefault();this.innerHTML='&lt;p style=\'color:var(--gold-soft);font-size:18px;padding:30px 0\'&gt;Thank you! We will contact you shortly.&lt;/p&gt;';">
+			<input type="text" placeholder="Your name" required="">
+			<input type="tel" placeholder="Phone" required="">
+			<div class="row">
+				<input type="date">
+				<input type="number" placeholder="Guests" min="1" value="2">
+			</div>
+			<button type="submit" class="btn btn-solid" style="padding:16px">Send request</button>
+		</form>
+	</div>
+</section>
+
+<footer>
+	<div class="wrap">
+		<span class="logo">OBSIDIAN</span><br>
+		Irkutsk, Angara embankment · +7 950 000 00 00 · daily 12:00–00:00<br>
+		<span style="font-size:11px;opacity:.6">Demo reference · design &amp; build</span>
+	</div>
+</footer>
+
+<script>
+const hdr=document.getElementById('hdr');
+const progress=document.getElementById('progress');
+const onScroll=()=>{hdr.classList.toggle('scrolled',window.scrollY>40);const h=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(h>0?(window.scrollY/h*100):0)+'%';};
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+function hidePreloader(){var p=document.getElementById('preloader');if(p)p.classList.add('done');}
+window.addEventListener('load',function(){setTimeout(hidePreloader,400);});
+document.addEventListener('DOMContentLoaded',function(){setTimeout(hidePreloader,1000);});
+setTimeout(hidePreloader,2500);
+const burger=document.getElementById('burger');
+const mobileMenu=document.getElementById('mobileMenu');
+const mClose=document.getElementById('mClose');
+const closeMenu=()=>{burger.classList.remove('active');mobileMenu.classList.remove('open');document.body.style.overflow='';};
+const toggleMenu=()=>{const willOpen=!mobileMenu.classList.contains('open');burger.classList.toggle('active',willOpen);mobileMenu.classList.toggle('open',willOpen);document.body.style.overflow=willOpen?'hidden':'';};
+burger.addEventListener('click',toggleMenu);
+mClose.addEventListener('click',closeMenu);
+mobileMenu.addEventListener('click',e=>{if(e.target===mobileMenu)closeMenu();});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+
+</body></html>
